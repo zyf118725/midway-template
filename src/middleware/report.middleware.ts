@@ -11,10 +11,9 @@ export class ReportMiddleware implements IMiddleware<Context, NextFunction> {
       // 这里可以拿到下一个中间件或者控制器的返回值
       const result = await next();
       // 控制器之后执行的逻辑
+      const time = Date.now() - startTime;
       ctx.logger.info(
-        `Report in "src/middleware/report.middleware.ts", rt = ${
-          Date.now() - startTime
-        }ms`
+        `Report in "src/middleware/report.middleware.ts", rt = ${time}ms`
       );
       // 返回给上一个中间件的结果
       return result;

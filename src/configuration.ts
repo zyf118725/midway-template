@@ -6,6 +6,7 @@ import { join } from 'path';
 // import { DefaultErrorFilter } from './filter/default.filter';
 // import { NotFoundFilter } from './filter/notfound.filter';
 import { ReportMiddleware } from './middleware/report.middleware';
+import { AuthGuard } from './guard/auth.guard';
 
 @Configuration({
   imports: [
@@ -27,5 +28,7 @@ export class MainConfiguration {
     this.app.useMiddleware([ReportMiddleware]);
     // add filter
     // this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
+    // 使用守卫
+    this.app.useGuard(AuthGuard);
   }
 }

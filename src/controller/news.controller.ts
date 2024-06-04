@@ -22,23 +22,15 @@ export class NewsController {
   newsService: NewsService;
 
   @Get('/list')
-  async list() {
-    // 3. 使用
-    const { data } = await this.newsService.handleList(1);
-    return { code: 1000, data: data };
+  async list(@Query() params) {
+    const data = await this.newsService.handleList();
+    return data;
   }
 
   @Get('/detail')
-  async detail(@Query('id') params) {
-    // console.log('params: ', JSON.parse(JSON.stringify(params)));
-
-    const p2 = this.ctx.query;
-    console.log('p2: ', p2);
-
-    return {
-      code: 1000,
-      data: '我是新闻详情',
-    };
+  async detail(@Query('id') id) {
+    this.ctx.set({ zyfres: 'zzzz' });
+    return await this.newsService.handleDetail(id);
   }
 
   @Get('/dongtai/:id')
@@ -52,7 +44,6 @@ export class NewsController {
   async add(@Body() params, @Headers() headers) {
     console.log('headers: ', headers);
     console.log('params: ', params);
-
     return {
       code: 1000,
       data: '增加',

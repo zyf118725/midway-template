@@ -11,12 +11,8 @@
     "jest": true
   },
   "rules": {
-    // "no-irregular-whitespace": "off",
-    // "indent": [
-    //   "off",
-    //   2
-    // ],
-    // "no-tabs": "off",
-    // "no-trailing-spaces": "off"
+    "prettier/prettier": "off",
+    "noUnusedLocals": false, // faskdf
+    "noUnusedParameters": false,
   }
 }
