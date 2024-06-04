@@ -7,11 +7,13 @@ import { join } from 'path';
 // import { NotFoundFilter } from './filter/notfound.filter';
 import { ReportMiddleware } from './middleware/report.middleware';
 import { AuthGuard } from './guard/auth.guard';
-
+// 1. 引入sequelize
+import * as sequelize from '@midwayjs/sequelize';
 @Configuration({
   imports: [
     koa,
     validate,
+    sequelize,
     {
       component: info,
       enabledEnvironment: ['local'],
@@ -19,6 +21,7 @@ import { AuthGuard } from './guard/auth.guard';
   ],
   importConfigs: [join(__dirname, './config')],
 })
+
 export class MainConfiguration {
   @App('koa')
   app: koa.Application;
