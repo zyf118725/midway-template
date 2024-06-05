@@ -1,18 +1,29 @@
 import { Provide } from '@midwayjs/core';
 import { formatError, formatSuccess, formatData } from '../util';
 import { News } from '../entity/news'
+import { Op } from 'sequelize'
 @Provide()
 export class NewsService {
-
   // 查询 - 分页查询
   async getList(params: any) {
+    console.log('params: ', params);
     let limit = parseInt(params.pageSize);
     let offset = (limit * (params.pageNum - 1));
     try {
-      const res = await News.findAndCountAll({ limit, offset }); // {count, rows}
+      const res = await News.findAndCountAll({
+        limit, offset,
+        // 按创建时间倒序
+        order: [['createdAt', 'DESC']],
+        // 模糊查询
+        where: {
+          name: {
+            [Op.like]: `%${params?.name}%`
+          }
+        }
+      });
       // console.log('res: ', formatData(res));
       const data = {
-        list: res.rows.map(item => ({ id: item.id, name: item.name, content: item.content })),
+        list: res.rows,
         total: res.count,
         totalPage: Math.ceil(res.count / limit),
         pageSize: params.pageSize,

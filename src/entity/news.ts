@@ -13,4 +13,7 @@ export class News extends Model {
   @Column
   content: string;
 
+  // @Column
+  // createdAt?: string;
+
 }
